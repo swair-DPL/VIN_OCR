@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "159087805948",
+    "firebase_url": "https://ocr-vin-c2f6d.firebaseio.com",
+    "project_id": "ocr-vin-c2f6d",
+    "storage_bucket": "ocr-vin-c2f6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159087805948:android:94e1c4de217475c8e71e79",
+        "android_client_info": {
+          "package_name": "com.ocr_vin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159087805948-72512a3r11hqbk8hcjaatu92v0t40l82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCap9sqjHR0A8SpZEbhn04x8sUshLR9kBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159087805948-72512a3r11hqbk8hcjaatu92v0t40l82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

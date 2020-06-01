@@ -1,24 +1,13 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import {
+    StyleSheet, Text, View, TouchableOpacity,
+    Animated,
+    Image,
+    Easing
+} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { RNCamera } from 'react-native-camera';
-
-const flashModeOrder = {
-    off: 'on',
-    on: 'auto',
-    auto: 'torch',
-    torch: 'off',
-};
-
-const wbOrder = {
-    auto: 'sunny',
-    sunny: 'cloudy',
-    cloudy: 'shadow',
-    shadow: 'fluorescent',
-    fluorescent: 'incandescent',
-    incandescent: 'auto',
-};
 
 export default class CameraScreen extends React.Component {
 
@@ -42,12 +31,22 @@ export default class CameraScreen extends React.Component {
         canDetectText: true,
         textBlocks: [],
     };
+    
+    constructor() {
+        super()
+        this.springValue = new Animated.Value(0.3)
 
-    myFun = value => () => this.setState(prevState => ({ [value]: !prevState[value] }));
-
-    toggle = value => () => this.setState(prevState => ({ [value]: !prevState[value] }));
-
-
+    }
+    spring() {
+        this.springValue.setValue(0.3)
+        Animated.spring(
+            this.springValue,
+            {
+                toValue: 1,
+                friction: 1
+            }
+        ).start()
+    }
     navigationFun = (value) => {
         this.props.navigation.navigate('OCRView', {
             otherParam: value,
@@ -75,9 +74,10 @@ export default class CameraScreen extends React.Component {
 
                 console.log('validating vin x' + this.state.valid_VIN)
                 this.setState({ valid_VIN: true })
+                this.spring()
             }
             const tem = str.substring(0, 17)
-            setTimeout(() => { this.navigationFun(tem) }, 1000)
+            setTimeout(() => { this.navigationFun(tem) }, 1500)
             console.log('Validateeeeed' + value)
         }
         return res
@@ -109,7 +109,7 @@ export default class CameraScreen extends React.Component {
 
 
     renderCamera() {
-        const { canDetectFaces, canDetectText, canDetectBarcode } = this.state;
+        const {  canDetectText } = this.state;
         return (
             <RNCamera
                 ref={ref => {
@@ -137,10 +137,19 @@ export default class CameraScreen extends React.Component {
             >
                 {!!canDetectText && this.renderTextBlocks()}
                 {this.state.valid_VIN && <View style={{ position: 'absolute', width: '100%', bottom: '10%', alignItems: 'center' }}>
-                    <Image
+                    <Animated.Image
+                        style={{
+                            width: 50,
+                            height: 50,
+                            transform: [{scale: this.springValue}]
+                        }}
+                        source={require('images/done.png')}
+                    />
+                    {/* <Image
                         style={{ height: 50, width: 50, }}
                         source={require('images/done.png')}
-                    /></View>}
+                    /> */}
+                </View>}
             </RNCamera>
         );
     }
